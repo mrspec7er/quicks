@@ -1,0 +1,19 @@
+html {
+    scroll-behavior: smooth;
+}
+
+input[type="checkbox"]:checked{
+    accent-color: white;
+    outline: 1px solid gray;
+  }
+
+  /* input[type="checkbox"]:checked {
+    line-height: 2.1ex;
+    accent-color: red;
+    color: aqua;
+    
+  } */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
