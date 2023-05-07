@@ -7,6 +7,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { BsBookmarks, BsClock } from "react-icons/bs";
 import { useState } from "react";
 import { TodoType, StickerType } from "../../utility/dataTodo";
+import getStickerColor from "../../utility/getStickerColor";
 
 const EachTask = ({
   task,
@@ -142,7 +143,9 @@ const EachTask = ({
             <div className="ml-10">
               <div className="flex items-center gap-3 my-2">
                 <div
-                  className={`text-xl ${task.date ? "text-primaryBlue" : null}`}
+                  className={`text-xl hover:scale-110 hover:cursor-pointer ${
+                    task.date ? "text-primaryBlue" : null
+                  }`}
                 >
                   <BsClock />
                 </div>
@@ -162,7 +165,7 @@ const EachTask = ({
                         : " "
                     )
                   }
-                  className={`text-2xl ${
+                  className={`text-2xl hover:scale-110 hover:cursor-pointer ${
                     task.description ? "text-primaryBlue" : null
                   }`}
                 >
@@ -184,6 +187,87 @@ const EachTask = ({
                     )}
                   </>
                 )}
+              </div>
+              <div className="flex items-center p-2 -mx-2 rounded gap-3 my-2 bg-primaryWhite bg-opacity-30">
+                <div
+                  onClickCapture={(e) => {
+                    setStickerOption(true);
+                    e.stopPropagation();
+                  }}
+                  className={`text-xl hover:scale-110 hover:cursor-pointer ${
+                    task.sticker ? "text-primaryBlue" : null
+                  }`}
+                >
+                  <BsBookmarks />
+                </div>
+                {stickerOption ? (
+                  <div className="bg-gray-50 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    <div className="absolute text-sm top-5 -left-9 border-2 border-primaryWhite p-2 w-52 bg-white rounded">
+                      <div
+                        className="rounded bg-stickersGray py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.IMPORTANT)}
+                      >
+                        {StickerType.IMPORTANT}
+                      </div>
+                      <div
+                        className="rounded bg-stickersChoco py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.OFFLINE)}
+                      >
+                        {StickerType.OFFLINE}
+                      </div>
+                      <div
+                        className="rounded bg-stickersLightChoco py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.VIRTUAL)}
+                      >
+                        {StickerType.VIRTUAL}
+                      </div>
+                      <div
+                        className="rounded bg-stickersGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.ASAP)}
+                      >
+                        {StickerType.ASAP}
+                      </div>
+                      <div
+                        className="rounded bg-stickersLightGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.CLIENT)}
+                      >
+                        {StickerType.CLIENT}
+                      </div>
+                      <div
+                        className="rounded bg-stickersPurple py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.SELF)}
+                      >
+                        {StickerType.SELF}
+                      </div>
+                      <div
+                        className="rounded bg-stickersPink py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() =>
+                          handleSetSticker(StickerType.APPOINTMENTS)
+                        }
+                      >
+                        {StickerType.APPOINTMENTS}
+                      </div>
+                      <div
+                        className="rounded bg-stickersGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
+                        onClick={() => handleSetSticker(StickerType.COURT)}
+                      >
+                        {StickerType.COURT}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                <div className="flex gap-3">
+                  {task.sticker?.map((i) => (
+                    <p
+                      className={`py-1 text-sm px-2 rounded bg-${getStickerColor(
+                        i
+                      )}`}
+                    >
+                      {i}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           ) : null}
@@ -275,7 +359,7 @@ const EachTask = ({
                         : " "
                     )
                   }
-                  className={`text-2xl ${
+                  className={`text-2xl hover:scale-110 hover:cursor-pointer ${
                     task.description ? "text-primaryBlue" : null
                   }`}
                 >
@@ -298,14 +382,16 @@ const EachTask = ({
                   </>
                 )}
               </div>
-              <div className="flex items-center p-2 rounded gap-3 my-2 bg-primaryWhite">
+              <div className="flex items-center p-2 -mx-2 rounded gap-3 my-2 bg-primaryWhite bg-opacity-30">
                 <div
                   onClickCapture={(e) => {
                     setStickerOption(true);
                     e.stopPropagation();
                   }}
                   className={`text-xl ${
-                    task.sticker ? "text-primaryBlue" : null
+                    task.sticker
+                      ? "text-primaryBlue hover:scale-110 hover:cursor-pointer"
+                      : null
                   }`}
                 >
                   <BsBookmarks />
@@ -314,43 +400,43 @@ const EachTask = ({
                   <div className="bg-gray-50 relative text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500">
                     <div className="absolute text-sm top-5 -left-9 border-2 border-primaryWhite p-2 w-52 bg-white rounded">
                       <div
-                        className="rounded bg-stickersGray py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersGray py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.IMPORTANT)}
                       >
                         {StickerType.IMPORTANT}
                       </div>
                       <div
-                        className="rounded bg-stickersChoco py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersChoco py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.OFFLINE)}
                       >
                         {StickerType.OFFLINE}
                       </div>
                       <div
-                        className="rounded bg-stickersLightChoco py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersLightChoco py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.VIRTUAL)}
                       >
                         {StickerType.VIRTUAL}
                       </div>
                       <div
-                        className="rounded bg-stickersGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.ASAP)}
                       >
                         {StickerType.ASAP}
                       </div>
                       <div
-                        className="rounded bg-stickersLightGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersLightGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.CLIENT)}
                       >
                         {StickerType.CLIENT}
                       </div>
                       <div
-                        className="rounded bg-stickersPurple py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersPurple py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.SELF)}
                       >
                         {StickerType.SELF}
                       </div>
                       <div
-                        className="rounded bg-stickersPink py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersPink py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() =>
                           handleSetSticker(StickerType.APPOINTMENTS)
                         }
@@ -358,7 +444,7 @@ const EachTask = ({
                         {StickerType.APPOINTMENTS}
                       </div>
                       <div
-                        className="rounded bg-stickersGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2"
+                        className="rounded bg-stickersGreen py-1 px-2 hover:bg-opacity-70 hover:cursor-pointer mb-2 hover:scale-105"
                         onClick={() => handleSetSticker(StickerType.COURT)}
                       >
                         {StickerType.COURT}
@@ -370,7 +456,7 @@ const EachTask = ({
                 <div className="flex gap-3">
                   {task.sticker?.map((i) => (
                     <p
-                      className={`py-1 text-sm px-2 rounded bg-${stickerColor(
+                      className={`py-1 text-sm px-2 rounded bg-${getStickerColor(
                         i
                       )}`}
                     >
@@ -387,32 +473,5 @@ const EachTask = ({
     </>
   );
 };
-
-function stickerColor(label: StickerType) {
-  if (label === StickerType.IMPORTANT) {
-    return "stickersGray";
-  }
-  if (label === StickerType.OFFLINE) {
-    return "stickersChoco";
-  }
-  if (label === StickerType.VIRTUAL) {
-    return "stickersLightChoco";
-  }
-  if (label === StickerType.ASAP) {
-    return "stickersGreen";
-  }
-  if (label === StickerType.CLIENT) {
-    return "stickersLightGreen";
-  }
-  if (label === StickerType.SELF) {
-    return "stickersPurple";
-  }
-  if (label === StickerType.APPOINTMENTS) {
-    return "stickersPink";
-  }
-  if (label === StickerType.COURT) {
-    return "stickersGreen";
-  }
-}
 
 export default EachTask;

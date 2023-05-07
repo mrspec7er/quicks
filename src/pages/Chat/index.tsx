@@ -76,7 +76,7 @@ const Chat = ({
                 setChatOpen(false);
                 setChatRoom(i.id);
               }}
-              className="w-full px-7"
+              className="w-full px-7 hover:bg-primaryWhite cursor-pointer"
             >
               <div className="flex gap-3 pt-5 pb-7 relative">
                 <img className="h-12" src={i.profile} alt="group" />
