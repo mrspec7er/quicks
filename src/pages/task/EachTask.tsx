@@ -94,7 +94,7 @@ const EachTask = ({
               <input
                 onChange={() => handleUncompleted(task)}
                 id="checkbox1"
-                className="bg-primaryGray"
+                className="bg-primaryGray hover:scale-110 hover:cursor-pointer"
                 type="checkbox"
                 checked={task.completed}
               />
@@ -287,6 +287,7 @@ const EachTask = ({
               <input
                 onChange={() => handleCompleted(task)}
                 checked={task.completed}
+                className="hover:scale-110 hover:cursor-pointer"
                 type="checkbox"
               />
               <p className="font-medium">{task.title}</p>
@@ -388,10 +389,8 @@ const EachTask = ({
                     setStickerOption(true);
                     e.stopPropagation();
                   }}
-                  className={`text-xl ${
-                    task.sticker
-                      ? "text-primaryBlue hover:scale-110 hover:cursor-pointer"
-                      : null
+                  className={`text-xl hover:scale-110 hover:cursor-pointer ${
+                    task.sticker ? "text-primaryBlue" : null
                   }`}
                 >
                   <BsBookmarks />
